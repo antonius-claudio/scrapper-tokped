@@ -10,9 +10,23 @@ const routes = [
   }
 ];
 
+const AppRouter = () => (
+  <Switch>
+    {
+      routes.map(route => (
+        <Route key={route} {...route} />
+      ))
+    }
+  </Switch>
+)
+
 function App() {
   return (
-    
+    <Router>
+      <div className='MainContainer'>
+        <AppRouter />
+      </div>
+    </Router>
   );
 }
 

@@ -1,31 +1,32 @@
 const puppeteer = require('puppeteer');
+const scrollPageToBottom =  require('puppeteer-autoscroll-down');
 
 async function getItem(link) {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
-    await page.setViewport({ width: 1000, height: 10000 });
     await page.goto(`${link}`, {
         waitUntil: 'networkidle2',
     });
+    await scrollPageToBottom(page)
+    
+    let item = await page.evaluate(() => {
+      let title = document.querySelector('div.css-636bko > h1.css-x7lc0h').innerHTML;
+      let price = String(document.querySelector('div.css-eyzclq > dd > h3').innerHTML).replace('Rp', '').replace('.','').replace('.','');
+      let weight = (document.querySelector('div.css-bqvohl > dd > p').innerHTML).replace('gr','');
+      let etalase = document.querySelector('div.css-1amuqy9.evv6ury0 > span').innerHTML;
+      let description = document.querySelector('.css-olztn6-unf-heading.e1qvo2ff8').innerHTML;
 
-    const item = await page.evaluate(() => {
-        const containPage = document.querySelectorAll(
-          '#zeus-root > div > div.css-1geyxdk > div.css-a6gim0 > div.css-19deanw > div.css-yxh0dp > div.css-9djufs'
-        );
-        const data = {};
-        containPage.forEach((element) => {
-          const linkItem = element.querySelector('a').href;
-          const unggulanItem = element.querySelector('a > div.featured-products');
-
-          if (unggulanItem === null) {
-            items.push({ linkItem });
-          }
-        });
-        return data;
+      return {
+        title,
+        price,
+        weight,
+        etalase,
+        description
+      };
     });
 
-    await page.close();
+
     await browser.close();
     return item;
 }

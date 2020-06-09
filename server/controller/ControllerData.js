@@ -1,5 +1,6 @@
 const getCategories = require('../helper/getCategories');
 const getList = require('../helper/getList');
+const getItem = require('../helper/getItem');
 
 class ControllerData {
     static async getCategories(req, res) {
@@ -16,7 +17,7 @@ class ControllerData {
 
     static async getItem(req, res) {
         const url = 'https://www.tokopedia.com/pusatvalve/1-2-inch-ball-valve-sankyo-mojekerto';
-        const item = await getItems(url);
+        const item = await getItem(url);
         res.status(200).json({ item });
     }
 }

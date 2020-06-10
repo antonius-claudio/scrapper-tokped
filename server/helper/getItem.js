@@ -26,7 +26,8 @@ async function getItem(link) {
       };
     });
       
-    const popup = await page.$('div.css-hnnye.ew904gd0');
+    let popup = await page.$('div.css-hnnye.ew904gd0');
+    
     const maxLoop = await page.evaluate(() => {
       let contain = document.querySelectorAll('div.css-1muhp5u.ejaoon00');
       return contain.length;
@@ -51,11 +52,11 @@ async function getItem(link) {
         await popup.dismiss();
       });
       await page.evaluate(() => {
-        document.querySelector('div.css-xwybk > div.css-1afp10f > div.css-jgk0ap.e1vuopcp0 > div:nth-child(2) > div.css-1ans2w0.e18n9kgb0').firstElementChild.click();
+        document.querySelector('div.css-xwybk > div > div > div:nth-child(2) > div').click();
       });
-  
-      const popup = await page.$('div.css-hnnye.ew904gd0');
 
+      popup = await page.$('div.css-hnnye.ew904gd0');
+  
       image2 = await popup.evaluate( popup => {
         popup.click()
         let image = document.querySelector('img.css-udmgcf').src;
@@ -68,10 +69,10 @@ async function getItem(link) {
         await popup.dismiss();
       });
       await page.evaluate(() => {
-        document.querySelector('div.css-xwybk > div.css-1afp10f > div.css-jgk0ap.e1vuopcp0 > div:nth-child(3) > div.css-1ans2w0.e18n9kgb0').firstElementChild.click();
+        document.querySelector('div.css-xwybk > div > div > div:nth-child(3) > div').click();
       });
   
-      const popup = await page.$('div.css-hnnye.ew904gd0');
+      popup = await page.$('div.css-hnnye.ew904gd0');
 
       image3 = await popup.evaluate( popup => {
         popup.click()
@@ -85,10 +86,10 @@ async function getItem(link) {
         await popup.dismiss();
       });
       await page.evaluate(() => {
-        document.querySelector('div.css-xwybk > div.css-1afp10f > div.css-jgk0ap.e1vuopcp0 > div:nth-child(4) > div.css-1ans2w0.e18n9kgb0').firstElementChild.click();
+        document.querySelector('div.css-xwybk > div > div > div:nth-child(4) > div').click();
       });
   
-      const popup = await page.$('div.css-hnnye.ew904gd0');
+      popup = await page.$('div.css-hnnye.ew904gd0');
 
       image4 = await popup.evaluate( popup => {
         popup.click()
@@ -102,10 +103,10 @@ async function getItem(link) {
         await popup.dismiss();
       });
       await page.evaluate(() => {
-        document.querySelector('div.css-xwybk > div.css-1afp10f > div.css-jgk0ap.e1vuopcp0 > div:nth-child(5) > div.css-1ans2w0.e18n9kgb0').firstElementChild.click();
+        document.querySelector('div.css-xwybk > div > div > div:nth-child(5) > div').click();
       });
   
-      const popup = await page.$('div.css-hnnye.ew904gd0');
+      popup = await page.$('div.css-hnnye.ew904gd0');
 
       image5 = await popup.evaluate( popup => {
         popup.click()
@@ -120,6 +121,7 @@ async function getItem(link) {
     image4 !== '' ? item.image4 = image4 : '';
     image5 !== '' ? item.image5 = image5 : '';
 
+    // item.maxLoop = maxLoop;
     await browser.close();
     return item;
 }

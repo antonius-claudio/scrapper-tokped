@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const scrollPageToBottom =  require('puppeteer-autoscroll-down');
 
 async function getItem(link) {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
     // const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);

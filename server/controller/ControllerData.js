@@ -6,7 +6,7 @@ const test = require('../helper/test');
 class ControllerData {
     static async getCategories(req, res) {
         // const url = 'https://www.tokopedia.com/pusatvalve';
-        const url = req.body.link;
+        let url = req.body.linkUrl;
         const categories = await getCategories(url);
         res.status(200).json({ categories });
     }
@@ -14,7 +14,7 @@ class ControllerData {
     static async getList(req, res) {
         try {
             // const url = 'https://www.tokopedia.com/pusatvalve/etalase/sandking';
-            const url = req.body.link;
+            let url = req.body.linkUrl;
             const list = await getList(url);
             res.status(200).json({ list });
         } catch (error) {
@@ -25,7 +25,7 @@ class ControllerData {
     static async getItem(req, res) {
         try {
             // const url = 'https://www.tokopedia.com/pusatvalve/true-union-ball-2-valve-pvc-socket-npt-1';
-            const url = req.body.link;
+            let url = req.body.linkUrl;
             const item = await getItem(url);
             res.status(200).json({ item });
         } catch (error) {
@@ -35,8 +35,11 @@ class ControllerData {
 
     static async getItemByList(req, res) {
         try {
+            // console.log('masuk controller', req.body.linkUrl)
             // const url = 'https://www.tokopedia.com/pusatvalve/etalase/sandking';
-            const url = req.body.link;
+            // console.log('masuk controller')
+            let url = req.body.linkUrl;
+            // console.log('masuk controller', req.body.linkUrl)
             const list = await getList(url);
             let temp = [];
             for (let i = 0; i < list.length; i++) {
@@ -52,7 +55,7 @@ class ControllerData {
 
     static gettest(req,res) {
         // const url = 'https://www.tokopedia.com/pusatvalve/true-union-ball-2-valve-pvc-socket-npt-1';
-        const url = req.body.link;
+        let url = req.body.linkUrl;
         const result = test(url);
         res.status(200).json(result);
     }

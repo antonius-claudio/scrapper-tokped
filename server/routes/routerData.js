@@ -5,7 +5,7 @@ router.get('/categories', ControllerData.getCategories);
 
 router.get('/list', ControllerData.getList);
 
-router.get('/itembylist', ControllerData.getItemByList);
+router.post('/itembylist', ControllerData.getItemByList);
 
 router.get('/item', ControllerData.getItem);
 

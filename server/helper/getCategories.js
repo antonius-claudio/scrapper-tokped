@@ -1,7 +1,8 @@
 const puppeteer = require('puppeteer');
 
 async function getCategories(link) {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    // const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
     await page.setViewport({ width: 1000, height: 926 });

@@ -5,7 +5,8 @@ async function test (link) {
     const PAGE_URL = link // the page to scrap the images from
     
     const browser = puppeteer.launch({
-        headless: true
+        // headless: true
+        args: ['--no-sandbox']
     });
     const page = await (await browser).newPage()
 

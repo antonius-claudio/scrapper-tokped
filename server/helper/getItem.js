@@ -25,7 +25,49 @@ async function getItem(link) {
         description
       };
     });
+      
+    const popup = await page.$('div.css-hnnye.ew904gd0');
+    const maxLoop = await page.evaluate(() => {
+      let contain = document.querySelectorAll('div.css-1muhp5u.ejaoon00');
+      return contain.length;
+    });
 
+    let image1 = '';
+    let image2 = '';
+    let image3 = '';
+    let image4 = '';
+    let image5 = '';
+
+    if (0 <= Number(maxLoop)) {
+      image1 = await popup.evaluate( popup => {
+        popup.click()
+        let image = document.querySelector('img.css-udmgcf').src;
+        return image;
+      } );
+    }
+    
+    await page.keyboard.press('Escape');
+    await page.keyboard.up('Escape');
+    // await page.waitForNavigation();
+    await page.click('div.css-xwybk > div > div > div:nth-child(2) > div > img');
+
+    const popup2 = await page.$('div.css-hnnye.ew904gd0');
+
+    if (1 <= Number(maxLoop)) {
+      image2 = await popup2.evaluate( popup2 => {
+        popup2.click()
+        let image = document.querySelector('img.css-udmgcf').src;
+        return image;
+      } );
+    }
+
+    image1 !== '' ? item.image1 = image1 : '';
+    image2 !== '' ? item.image2 = image2 : '';
+    image3 !== '' ? item.image3 = image3 : '';
+    image4 !== '' ? item.image4 = image4 : '';
+    image5 !== '' ? item.image5 = image5 : '';
+
+    item.maxLoop = maxLoop;
 
     await browser.close();
     return item;

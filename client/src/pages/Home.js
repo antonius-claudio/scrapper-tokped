@@ -19,9 +19,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import DownloadIcon from '@material-ui/icons/GetApp';
 import SendIcon from '@material-ui/icons/Send';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import xlsx from 'xlsx';
 
 const drawerWidth = 240;
 
@@ -124,6 +126,15 @@ export default function Home() {
         });
     }
 
+    const toExcel = () => {
+      if (result) {
+        let new_workbook = xlsx.utils.book_new();
+        let worksheet = xlsx.utils.json_to_sheet(result);
+        xlsx.utils.book_append_sheet(new_workbook, worksheet, 'Sheet1');
+        xlsx.writeFile(new_workbook, `${Date.now()}.xlsx`);
+      }
+    }
+
     return (
         <div className={classes.root}>
         <CssBaseline />
@@ -198,6 +209,17 @@ export default function Home() {
                 >
                     Send
                 </Button>
+                {result && result.length !== 0 && 
+                  <Button
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      endIcon={<DownloadIcon />}
+                      onClick={toExcel}
+                  >
+                      Download
+                  </Button>
+                }
             </form>
             <div>
             <Table>
@@ -224,11 +246,11 @@ export default function Home() {
                                 <Td>{i.weight}</Td>
                                 <Td>{i.etalase}</Td>
                                 <Td>{i.description}</Td>
-                                <Td>{i.image1 ? i.image1 : ''}</Td>
-                                <Td>{i.image2 ? i.image2 : ''}</Td>
-                                <Td>{i.image3 ? i.image3 : ''}</Td>
-                                <Td>{i.image4 ? i.image4 : ''}</Td>
-                                <Td>{i.image5 ? i.image5 : ''}</Td>
+                                <Td>{i.image1 ? i.image1 : 'none'}</Td>
+                                <Td>{i.image2 ? i.image2 : 'none'}</Td>
+                                <Td>{i.image3 ? i.image3 : 'none'}</Td>
+                                <Td>{i.image4 ? i.image4 : 'none'}</Td>
+                                <Td>{i.image5 ? i.image5 : 'none'}</Td>
                             </Tr>
                         ))
                     }

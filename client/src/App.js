@@ -1,12 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import ByStore from './pages/ByStore';
 
 const routes = [
   {
     exact: true,
     path: '/',
     component: Home
+  },
+  {
+    path: '/store',
+    component: ByStore
   }
 ];
 

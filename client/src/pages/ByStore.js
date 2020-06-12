@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function ByStore() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -177,16 +177,16 @@ export default function Home() {
             <Divider />
             <List>
                 <Link to='/'>
-                  <ListItem button>
+                    <ListItem button>
                     <ListItemIcon><CategoryIcon /></ListItemIcon>
                     <ListItemText primary={'By Category'} />
-                  </ListItem>
+                    </ListItem>
                 </Link>
                 <Link to='/store'>
-                  <ListItem button>
+                    <ListItem button>
                     <ListItemIcon><StorefrontIcon /></ListItemIcon>
                     <ListItemText primary={'By Store'} />
-                  </ListItem>
+                    </ListItem>
                 </Link>
             </List>
         </Drawer>
@@ -197,7 +197,7 @@ export default function Home() {
         >
             <div className={classes.drawerHeader} />
             <form className={classes.root} noValidate autoComplete="off">
-                <TextField id="link" label="Link by Category" variant="outlined" onChange={(e) => setLinkUrl(e.target.value)}/>
+                <TextField id="link" label="Link by Store" variant="outlined" onChange={(e) => setLinkUrl(e.target.value)}/>
                 {result.length === 0 &&
                 <Button
                     variant="contained"

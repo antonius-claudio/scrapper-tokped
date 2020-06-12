@@ -6,6 +6,16 @@ async function getCategories(link) {
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
     await page.setViewport({ width: 1000, height: 926 });
+    await page.setRequestInterception(true);
+    page.on('request', interceptedRequest => {
+      if (interceptedRequest.url().endsWith('.png') 
+      || interceptedRequest.url().endsWith('.jpg') 
+      || interceptedRequest.url().endsWith('.jpeg')
+      || interceptedRequest.url().endsWith('.webp'))
+        interceptedRequest.abort();
+      else
+        interceptedRequest.continue();
+    });
     await page.goto(`${link}`, {
         waitUntil: 'networkidle2',
     });

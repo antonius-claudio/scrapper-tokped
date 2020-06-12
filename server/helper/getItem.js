@@ -6,6 +6,16 @@ async function getItem(link) {
     // const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
+    await page.setRequestInterception(true);
+    page.on('request', interceptedRequest => {
+      if (interceptedRequest.url().endsWith('.png') 
+      || interceptedRequest.url().endsWith('.webp')
+      || interceptedRequest.url().endsWith('.jpeg')
+      || interceptedRequest.url().endsWith('.jpg'))
+        interceptedRequest.abort();
+      else
+        interceptedRequest.continue();
+    });
     await page.goto(`${link}`, {
         waitUntil: 'networkidle2',
     });

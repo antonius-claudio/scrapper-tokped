@@ -120,7 +120,7 @@ export default function ByStore() {
 
     let getData = async () => {
         console.log(linkUrl)
-        postData('http://localhost:3000/itembylist', { linkUrl })
+        postData('http://localhost:3000/itembyStore', { linkUrl })
         .then(data => {
             setResult(data);
             console.log(data); // JSON data parsed by `response.json()` call
@@ -222,40 +222,40 @@ export default function ByStore() {
                 }
             </form>
             <div>
+            {result && result.length !== 0 && 
             <Table>
-                <Thead>
+                <Thead style={{backgroundColor:'#9e87fb', color:'#fff'}}>
                     <Tr>
-                    <Th>Title</Th>
-                    <Th>Price</Th>
-                    <Th>Weight</Th>
-                    <Th>Etalase</Th>
-                    <Th>Description</Th>
-                    <Th>Image1</Th>
-                    <Th>Image2</Th>
-                    <Th>Image3</Th>
-                    <Th>Image4</Th>
-                    <Th>Image5</Th>
+                        <Th style={{padding: '5px'}}>Title</Th>
+                        <Th style={{padding: '5px'}}>Price</Th>
+                        <Th style={{padding: '5px'}}>Weight</Th>
+                        <Th style={{padding: '5px'}}>Etalase</Th>
+                        <Th style={{padding: '5px'}}>Description</Th>
+                        <Th style={{padding: '5px'}}>Image1</Th>
+                        <Th style={{padding: '5px'}}>Image2</Th>
+                        <Th style={{padding: '5px'}}>Image3</Th>
+                        <Th style={{padding: '5px'}}>Image4</Th>
+                        <Th style={{padding: '5px'}}>Image5</Th>
                     </Tr>
                 </Thead>
-                <Tbody>
-                    {result && result.length !== 0 && 
-                        result.map(i => (
-                            <Tr>
-                                <Td>{i.title}</Td>
-                                <Td>{i.price}</Td>
-                                <Td>{i.weight}</Td>
-                                <Td>{i.etalase}</Td>
-                                <Td>{i.description}</Td>
-                                <Td>{i.image1 ? i.image1 : 'none'}</Td>
-                                <Td>{i.image2 ? i.image2 : 'none'}</Td>
-                                <Td>{i.image3 ? i.image3 : 'none'}</Td>
-                                <Td>{i.image4 ? i.image4 : 'none'}</Td>
-                                <Td>{i.image5 ? i.image5 : 'none'}</Td>
-                            </Tr>
-                        ))
-                    }
+                <Tbody  style={{backgroundColor:'#fddbdb'}}>
+                    {result.map(i => (
+                        <Tr>
+                            <Td>{i.title}</Td>
+                            <Td>{i.price}</Td>
+                            <Td>{i.weight}</Td>
+                            <Td>{i.etalase}</Td>
+                            <Td>{i.description}</Td>
+                            <Td>{i.image1 ? i.image1 : 'none'}</Td>
+                            <Td>{i.image2 ? i.image2 : 'none'}</Td>
+                            <Td>{i.image3 ? i.image3 : 'none'}</Td>
+                            <Td>{i.image4 ? i.image4 : 'none'}</Td>
+                            <Td>{i.image5 ? i.image5 : 'none'}</Td>
+                        </Tr>
+                    ))}
                 </Tbody>
             </Table>
+            }
             </div>
         </main>
         </div>

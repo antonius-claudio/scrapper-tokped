@@ -53,6 +53,26 @@ class ControllerData {
         }
     }
 
+    static async getItemByStore(req, res) {
+        try {
+            let url = req.body.linkUrl;
+            const categories = await getCategories(url);
+            let temp = [];
+            
+            for (let j = 0; j < categories.length; j++) {
+                let list = await getList(categories[j].linkCategory);
+                for (let i = 0; i < list.length; i++) {
+                    let result = await getItem(list[i].linkItem);
+                    temp.push(result);
+                }
+            }
+            
+            res.status(200).json(temp);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     static gettest(req,res) {
         // const url = 'https://www.tokopedia.com/pusatvalve/true-union-ball-2-valve-pvc-socket-npt-1';
         let url = req.body.linkUrl;

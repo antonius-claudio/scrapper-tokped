@@ -7,6 +7,8 @@ router.get('/list', ControllerData.getList);
 
 router.post('/itembylist', ControllerData.getItemByList);
 
+router.post('/itembyStore', ControllerData.getItemByStore);
+
 router.get('/item', ControllerData.getItem);
 
 router.get('/test', ControllerData.gettest);

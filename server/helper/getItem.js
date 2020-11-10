@@ -22,11 +22,11 @@ async function getItem(link) {
     await scrollPageToBottom(page)
     
     let item = await page.evaluate(() => {
-      let title = document.querySelector('div.css-636bko > h1.css-x7lc0h').innerHTML;
-      let price = String(document.querySelector('div.css-eyzclq > dd > h3').innerHTML).replace('Rp', '').replace('.','').replace('.','');
-      let weight = (document.querySelector('div.css-bqvohl > dd > p').innerHTML).replace('gr','');
-      let etalase = document.querySelector('div.css-1amuqy9.evv6ury0 > span').innerHTML;
-      let description = document.querySelector('.css-olztn6-unf-heading.e1qvo2ff8').innerHTML;
+      let title = document.querySelector('h1[data-testid="lblPDPDetailProductName"]').innerHTML;
+      let price = String(document.querySelector('h3[data-testid="lblPDPDetailProductPrice"]').innerHTML).replace('Rp', '').replace('.','').replace('.','');
+      let weight = (document.querySelector('p[data-testid="PDPDetailWeightValue"]').innerHTML).replace('gr','');
+      let etalase = document.querySelector('p[data-testid="PDPDetailShowcaseValue"] > div > div > span').innerHTML;
+      let description = document.querySelector('p[data-testid="lblPDPDeskripsiProduk"]').innerHTML;
 
       return {
         title,
@@ -37,10 +37,10 @@ async function getItem(link) {
       };
     });
       
-    let popup = await page.$('div.css-hnnye.ew904gd0');
+    let popup = await page.$('div[data-testid="PDPImageMain"] > div');
     
     const maxLoop = await page.evaluate(() => {
-      let contain = document.querySelectorAll('div.css-1muhp5u.ejaoon00');
+      let contain = document.querySelectorAll('div.css-xwybk > div[data-testid="listPDPSlider"] > div > div');
       return contain.length;
     });
 
@@ -50,15 +50,15 @@ async function getItem(link) {
     let image4 = '';
     let image5 = '';
 
-    if (0 <= Number(maxLoop)) {
+    if (0 < Number(maxLoop)) {
       image1 = await popup.evaluate( popup => {
         popup.click()
-        let image = document.querySelector('img.css-udmgcf').src;
+        let image = document.querySelector('img[data-testid="PDPImageDetail"]').src;
         return image;
       } );
     }
     
-    if (1 <= Number(maxLoop)) {
+    if (1 < Number(maxLoop)) {
       page.on('dialog', async popup => {
         await popup.dismiss();
       });
@@ -66,16 +66,16 @@ async function getItem(link) {
         document.querySelector('div.css-xwybk > div > div > div:nth-child(2) > div').click();
       });
 
-      popup = await page.$('div.css-hnnye.ew904gd0');
+      popup = await page.$('div[data-testid="PDPImageMain"] > div');
   
       image2 = await popup.evaluate( popup => {
         popup.click()
-        let image = document.querySelector('img.css-udmgcf').src;
+        let image = document.querySelector('img[data-testid="PDPImageDetail"]').src;
         return image;
       } );
     }
 
-    if (2 <= Number(maxLoop)) {
+    if (2 < Number(maxLoop)) {
       page.on('dialog', async popup => {
         await popup.dismiss();
       });
@@ -83,16 +83,16 @@ async function getItem(link) {
         document.querySelector('div.css-xwybk > div > div > div:nth-child(3) > div').click();
       });
   
-      popup = await page.$('div.css-hnnye.ew904gd0');
+      popup = await page.$('div[data-testid="PDPImageMain"] > div');
 
       image3 = await popup.evaluate( popup => {
         popup.click()
-        let image = document.querySelector('img.css-udmgcf').src;
+        let image = document.querySelector('img[data-testid="PDPImageDetail"]').src;
         return image;
       } );
     }
 
-    if (3 <= Number(maxLoop)) {
+    if (3 < Number(maxLoop)) {
       page.on('dialog', async popup => {
         await popup.dismiss();
       });
@@ -100,16 +100,16 @@ async function getItem(link) {
         document.querySelector('div.css-xwybk > div > div > div:nth-child(4) > div').click();
       });
   
-      popup = await page.$('div.css-hnnye.ew904gd0');
+      popup = await page.$('div[data-testid="PDPImageMain"] > div');
 
       image4 = await popup.evaluate( popup => {
         popup.click()
-        let image = document.querySelector('img.css-udmgcf').src;
+        let image = document.querySelector('img[data-testid="PDPImageDetail"]').src;
         return image;
       } );
     }
 
-    if (4 <= Number(maxLoop)) {
+    if (4 < Number(maxLoop)) {
       page.on('dialog', async popup => {
         await popup.dismiss();
       });
@@ -117,11 +117,11 @@ async function getItem(link) {
         document.querySelector('div.css-xwybk > div > div > div:nth-child(5) > div').click();
       });
   
-      popup = await page.$('div.css-hnnye.ew904gd0');
+      popup = await page.$('div[data-testid="PDPImageMain"] > div');
 
       image5 = await popup.evaluate( popup => {
         popup.click()
-        let image = document.querySelector('img.css-udmgcf').src;
+        let image = document.querySelector('img[data-testid="PDPImageDetail"]').src;
         return image;
       } );
     }
@@ -132,7 +132,7 @@ async function getItem(link) {
     image4 !== '' ? item.image4 = image4 : '';
     image5 !== '' ? item.image5 = image5 : '';
 
-    // item.maxLoop = maxLoop;
+    item.maxLoop = maxLoop;
     await browser.close();
     return item;
 }

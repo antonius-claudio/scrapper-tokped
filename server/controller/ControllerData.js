@@ -39,7 +39,7 @@ class ControllerData {
             // const url = 'https://www.tokopedia.com/pusatvalve/etalase/sandking';
             // console.log('masuk controller')
             let url = req.body.linkUrl;
-            // console.log('masuk controller', req.body.linkUrl)
+            console.log('masuk controller', req.body.linkUrl)
             const list = await getList(url);
             let temp = [];
             for (let i = 0; i < list.length; i++) {

@@ -16,9 +16,10 @@ class ControllerData {
             // const url = 'https://www.tokopedia.com/pusatvalve/etalase/sandking';
             let url = req.body.linkUrl;
             const list = await getList(url);
+            console.log('success get list', list)
             res.status(200).json({ list });
         } catch (error) {
-            console.log(error)
+            console.log('error get list', error)
         }
     }
 
@@ -29,7 +30,7 @@ class ControllerData {
             const item = await getItem(url);
             res.status(200).json({ item });
         } catch (error) {
-            console.log(error)
+            console.log('error get item', error)
         }
     }
 

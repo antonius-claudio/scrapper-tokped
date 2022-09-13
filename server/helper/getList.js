@@ -23,12 +23,14 @@ async function getList(link) {
     
     let itemsLink = await page.evaluate(() => {
       const containPage = document.querySelectorAll(
-        '#zeus-root > div > div.css-1geyxdk > div.css-1kn5b1o > div > div.css-8atqhb > div.css-tjjb18 > div'
+        // '#zeus-root > div > div.css-1geyxdk > div.css-1kn5b1o > div > div.css-8atqhb > div.css-tjjb18 > div'
+        '#zeus-root > div > div:nth-child(2) > div.css-zvvilv > div.css-1kn5b1o > div > div.css-8atqhb > div.css-tjjb18 > div'
       );
       const items = [];
       containPage.forEach((element) => {
-        const linkItem = element.querySelector('div > div > div > div > div > div.css-1ehqh5q > a').href;
-
+        // const linkItem = element.querySelector('div > div > div > div > div > div.css-1ehqh5q > a').href;
+        const linkItem = element.querySelector('div > div > div > div > div > div.css-zimbi > a').href;
+        
         items.push({ linkItem });
       });
       return items;

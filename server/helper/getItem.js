@@ -23,10 +23,12 @@ async function getItem(link) {
     
     let item = await page.evaluate(() => {
       let title = document.querySelector('h1[data-testid="lblPDPDetailProductName"]').innerHTML;
-      let price = String(document.querySelector('h3[data-testid="lblPDPDetailProductPrice"]').innerHTML).replace('Rp', '').replace('.','').replace('.','');
-      let weight = (document.querySelector('p[data-testid="PDPDetailWeightValue"]').innerHTML).replace('gr','');
-      let etalase = document.querySelector('p[data-testid="PDPDetailShowcaseValue"] > div > div > span').innerHTML;
-      let description = document.querySelector('p[data-testid="lblPDPDeskripsiProduk"]').innerHTML;
+      let price = String(document.querySelector('div[data-testid="lblPDPDetailProductPrice"]').innerHTML).replace('Rp', '').replace('.','').replace('.','');
+      // let weight = (document.querySelector('p[data-testid="PDPDetailWeightValue"]').innerHTML).replace('gr','');
+      let weight = (document.querySelector("#pdp_comp-product_detail > div:nth-child(2) > div:nth-child(2) > ul > li:nth-child(2) > span.main").innerHTML).replace('gr','');
+      // let etalase = document.querySelector('p[data-testid="PDPDetailShowcaseValue"] > div > div > span').innerHTML;
+      let etalase = document.querySelector("#pdp_comp-product_detail > div:nth-child(2) > div:nth-child(2) > ul > li:nth-child(4) > a > b").innerHTML;
+      let description = document.querySelector('div[data-testid="lblPDPDescriptionProduk"]').innerHTML;
 
       return {
         title,
@@ -36,11 +38,13 @@ async function getItem(link) {
         description
       };
     });
-      
+    
+    // klik tempat popup
     let popup = await page.$('div[data-testid="PDPImageMain"] > div');
     
     const maxLoop = await page.evaluate(() => {
-      let contain = document.querySelectorAll('div.css-xwybk > div[data-testid="listPDPSlider"] > div > div');
+      // thumbnail list sebelum popup
+      let contain = document.querySelectorAll('div.css-1bl416v > div[data-testid="listPDPSlider"] > div > div');
       return contain.length;
     });
 
@@ -63,7 +67,8 @@ async function getItem(link) {
         await popup.dismiss();
       });
       await page.evaluate(() => {
-        document.querySelector('div.css-xwybk > div > div > div:nth-child(2) > div').click();
+        // document.querySelector('div.css-xwybk > div > div > div:nth-child(2) > div').click();
+        document.querySelectorAll('div[data-testid="PDPImageThumbnail"]:nth-child(2)').click();
       });
 
       popup = await page.$('div[data-testid="PDPImageMain"] > div');
@@ -80,7 +85,8 @@ async function getItem(link) {
         await popup.dismiss();
       });
       await page.evaluate(() => {
-        document.querySelector('div.css-xwybk > div > div > div:nth-child(3) > div').click();
+        // document.querySelector('div.css-xwybk > div > div > div:nth-child(3) > div').click();
+        document.querySelectorAll('div[data-testid="PDPImageThumbnail"]:nth-child(3)').click();
       });
   
       popup = await page.$('div[data-testid="PDPImageMain"] > div');
@@ -97,7 +103,8 @@ async function getItem(link) {
         await popup.dismiss();
       });
       await page.evaluate(() => {
-        document.querySelector('div.css-xwybk > div > div > div:nth-child(4) > div').click();
+        // document.querySelector('div.css-xwybk > div > div > div:nth-child(4) > div').click();
+        document.querySelectorAll('div[data-testid="PDPImageThumbnail"]:nth-child(4)').click();
       });
   
       popup = await page.$('div[data-testid="PDPImageMain"] > div');
@@ -114,7 +121,8 @@ async function getItem(link) {
         await popup.dismiss();
       });
       await page.evaluate(() => {
-        document.querySelector('div.css-xwybk > div > div > div:nth-child(5) > div').click();
+        // document.querySelector('div.css-xwybk > div > div > div:nth-child(5) > div').click();
+        document.querySelectorAll('div[data-testid="PDPImageThumbnail"]:nth-child(5)').click();
       });
   
       popup = await page.$('div[data-testid="PDPImageMain"] > div');

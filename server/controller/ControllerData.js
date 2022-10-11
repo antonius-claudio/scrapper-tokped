@@ -2,6 +2,8 @@ const getCategories = require('../helper/getCategories');
 const getList = require('../helper/getList');
 const getItem = require('../helper/getItem');
 const test = require('../helper/test');
+const getListShopee = require('../helper/getListShopee');
+const getItemShopee = require('../helper/getItemShopee');
 
 class ControllerData {
     static async getCategories(req, res) {
@@ -79,6 +81,26 @@ class ControllerData {
         let url = req.body.linkUrl;
         const result = test(url);
         res.status(200).json(result);
+    }
+
+    static async getEtalaseShopee(req, res) {
+        let url = req.body.linkUrl;
+
+        try {
+            console.log('masuk controller shopee', req.body.linkUrl)
+            const list = await getListShopee(url);
+            let temp = [];
+            for (let i = 0; i < list.length; i++) {
+                let result = await getItemShopee(list[i].linkItem);
+                result.link = list[i].linkItem;
+                temp.push(result);
+            }
+            
+            res.status(200).json(temp);
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 }
 

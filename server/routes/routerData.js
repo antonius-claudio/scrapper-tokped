@@ -13,4 +13,6 @@ router.get('/item', ControllerData.getItem);
 
 router.get('/test', ControllerData.gettest);
 
+router.post('/shopeeEtalase', ControllerData.getEtalaseShopee);
+
 module.exports = router;
